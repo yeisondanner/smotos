@@ -217,7 +217,9 @@ class controladores extends modelos
     }
     public function controlador_que_lista_motos_registradas()
     {
-        $consulta = "SELECT * FROM `motos` ORDER BY `motos`.`m_fechaRegistro` DESC";
+        $consulta = "SELECT * FROM `motos` AS m 
+INNER JOIN imagen AS i ON i.idMotos=m.idMotos
+GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             $cadena = "";
             foreach (mainModel::ejecutar_consulta_simple($consulta)->fetchAll() as $row) {
@@ -226,7 +228,7 @@ class controladores extends modelos
                                         hover:shadow-lg">
                     <a href="">
                         <div class="flex justify-center">
-                            <img loading="lazy" src="informatica.png" alt="" class="h-32" srcset="informatica.png">
+                            <img loading="lazy" src="' . SERVERURL_PWEB . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="" class="h-32">
                         </div>
                         <div class="text-center">
                             <h1 class="font-bold text-lg">' . $row['m_Modelo'] . '</h1>
@@ -235,7 +237,8 @@ class controladores extends modelos
                         <form class="flex justify py-2">
                         <button type="submit" class="bg-red-600 px-2 rounded-lg text-white font-semibold"> Desactivar </button> 
                         &nbsp;    
-                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white">Agregar Imagen</a>         
+                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white">+ Imagen</a>         
+                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white">Editar</a>         
                         </form>
                     </a>
                 </div>
@@ -249,7 +252,7 @@ class controladores extends modelos
         $idMoto = mainModel::limpiar_cadena($_POST['idMotoIMG']);
         $name_Foto = $_FILES['imagenMT']["name"];
         $carpeta = "MOTO_" . $idMoto . "/";
-        $nameFinal=$carpeta.$name_Foto ;
+        $nameFinal = $carpeta . $name_Foto;
         $consulta = "INSERT INTO `imagen` (`idImagen`, `idMotos`, `i_Imagen`) VALUES (NULL, '$idMoto', '$nameFinal')";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
 
@@ -266,7 +269,7 @@ class controladores extends modelos
                     "Texto" => "Imagen de la moto registrado",
                     "Tipo" => "success"
                 ];
-            }else{
+            } else {
                 $alerta = [
                     "Alerta" => "simple",
                     "Titulo" => "Error",
