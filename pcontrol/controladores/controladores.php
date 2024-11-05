@@ -193,7 +193,9 @@ class controladores extends modelos
     }
     public function controlador_que_lista_motos()
     {
-        $consulta = "SELECT * FROM `motos` ORDER BY `motos`.`m_fechaRegistro` DESC";
+        $consulta = "SELECT * FROM `motos` AS m
+        INNER JOIN imagen AS i ON i.idMotos=m.idMotos 
+        GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC;";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             $cadena = "";
             foreach (mainModel::ejecutar_consulta_simple($consulta)->fetchAll() as $row) {
@@ -202,7 +204,7 @@ class controladores extends modelos
                                         hover:shadow-lg">
                     <a href="">
                         <div class="flex justify-center">
-                            <img loading="lazy" src="informatica.png" alt="" class="h-32" srcset="informatica.png">
+                            <img loading="lazy" src="' . SERVERURL_PWEB . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="" class="h-32" >
                         </div>
                         <div class="text-center">
                             <h1 class="font-bold text-lg">' . $row['m_Modelo'] . '</h1>
@@ -218,12 +220,12 @@ class controladores extends modelos
     public function controlador_que_lista_motos_registradas()
     {
         $consulta = "SELECT * FROM `motos` AS m 
-INNER JOIN imagen AS i ON i.idMotos=m.idMotos
-GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
+        INNER JOIN imagen AS i ON i.idMotos=m.idMotos
+        GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             $cadena = "";
             foreach (mainModel::ejecutar_consulta_simple($consulta)->fetchAll() as $row) {
-                $cadena .= '<div class="p-1">
+                $cadena .= '<div class="p-1 hover:shadow-lg rounded-lg card-motos">
                 <div class="border rounded-lg px-2 bg-white p-2
                                         hover:shadow-lg">
                     <a href="">
@@ -233,13 +235,14 @@ GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
                         <div class="text-center">
                             <h1 class="font-bold text-lg">' . $row['m_Modelo'] . '</h1>
                             <h6 class="text-xs">' . $row['m_fechaRegistro'] . '</h6>
+                            <h6 class="text-xs">' . $row['m_Estado'] . '</h6>
                         </div>
-                        <form class="flex justify py-2">
-                        <button type="submit" class="bg-red-600 px-2 rounded-lg text-white font-semibold"> Desactivar </button> 
+                        <div class="flex py-2 btn-group">
+                        <button type="button"  class="bg-red-600 px-2 rounded-lg text-white font-semibold btn-delete" data-status="' . $row['m_Estado'] . '" data-id="' . $row['idMotos'] . '"><i class="fa fa-toggle-on"></i></button> 
                         &nbsp;    
-                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white">+ Imagen</a>         
-                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white">Editar</a>         
-                        </form>
+                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white"><i class="fa fa-image"></i></a>         
+                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white"><i class="fa fa-edit"></i></a>         
+                        </div>
                     </a>
                 </div>
             </div>';
@@ -278,6 +281,27 @@ GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
                 ];
             }
 
+            echo json_encode($alerta);
+        }
+    }
+    public function controlador_actualiza_estadoo_moto()
+    {
+        $idMoto = mainModel::limpiar_cadena($_POST['idMoto']);
+        $estado = mainModel::limpiar_cadena($_POST['status']);
+        if ($estado == "activo") {
+            $estado = "inactivo";
+        } else {
+            $estado = "activo";
+        }
+        $consulta = "UPDATE `motos` SET `m_estado` = '$estado' WHERE `motos`.`idMotos` = '$idMoto'";
+        if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+            $alerta = [
+                "Alerta" => "limpiar",
+                "Titulo" => "Satisfactorio",
+                "Texto" => "Estado de la moto actualizado",
+                "Tipo" => "success",
+                "status" => true
+            ];
             echo json_encode($alerta);
         }
     }
