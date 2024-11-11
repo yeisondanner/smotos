@@ -219,7 +219,7 @@ class controladores extends modelos
     }
     public function controlador_que_lista_motos_registradas()
     {
-        $consulta = "SELECT * FROM `motos` AS m 
+        $consulta = "SELECT m.*,i.i_Imagen FROM `motos` AS m 
         LEFT JOIN imagen AS i ON i.idMotos=m.idMotos
         GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
