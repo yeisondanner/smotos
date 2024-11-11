@@ -220,7 +220,7 @@ class controladores extends modelos
     public function controlador_que_lista_motos_registradas()
     {
         $consulta = "SELECT * FROM `motos` AS m 
-        INNER JOIN imagen AS i ON i.idMotos=m.idMotos
+        LEFT JOIN imagen AS i ON i.idMotos=m.idMotos
         GROUP BY m.idMotos ORDER BY m.`m_fechaRegistro` DESC ;";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             $cadena = "";
@@ -230,7 +230,7 @@ class controladores extends modelos
                                         hover:shadow-lg">
                     <a href="">
                         <div class="flex justify-center">
-                            <img loading="lazy" src="' . SERVERURL_PWEB . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="" class="h-32">
+                            <img loading="lazy" src="' . SERVERURL_PWEB . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="' . $row['m_Modelo'] . '" class="h-32">
                         </div>
                         <div class="text-center">
                             <h1 class="font-bold text-lg">' . $row['m_Modelo'] . '</h1>
@@ -240,8 +240,14 @@ class controladores extends modelos
                         <div class="flex py-2 btn-group">
                         <button type="button"  class="bg-red-600 px-2 rounded-lg text-white font-semibold btn-delete" data-status="' . $row['m_Estado'] . '" data-id="' . $row['idMotos'] . '"><i class="fa fa-toggle-on"></i></button> 
                         &nbsp;    
-                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white"><i class="fa fa-image"></i></a>         
-                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '" class="bg-cyan-600 px-2 rounded-lg text-white"><i class="fa fa-edit"></i></a>         
+                        <a href="' . SERVERURL . 'image-upload/' . $row['idMotos'] . '"  class="bg-cyan-600 px-2 rounded-lg text-white"><i class="fa fa-image"></i></a>         
+                        <a href=""  data-id="' . $row['idMotos'] . '" 
+                                    data-modelo="' . $row['m_Modelo'] . '" 
+                                    data-year="' . $row['m_Year'] . '" 
+                                    data-marca="' . $row['m_Marca'] . '" 
+                                    data-precio="' . $row['m_Precio'] . '" 
+                                    data-descripcion="' . $row['m_Descripcion'] . '" 
+                                    class="bg-cyan-600 px-2 rounded-lg text-white btn-open-edit-modal"><i class="fa fa-edit"></i></a>         
                         </div>
                     </a>
                 </div>

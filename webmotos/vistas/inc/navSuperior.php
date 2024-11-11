@@ -16,7 +16,7 @@
     <!--Search input-->
     <div class="w-48 md:w-96">
         <form action="" method="POST" class="bg-gray-100 px-2 rounded-md py-1 flex">
-            <input type="search" name="buscador" placeholder="Busca motos en Salazar" id="" class="bg-gray-100 h-full outline-none text-xs md:text-base w-full py-2 ">
+            <input type="search" name="buscador" placeholder="Busca motos en San Luis Motors" id="" class="bg-gray-100 h-full outline-none text-xs md:text-base w-full py-2 ">
             <button type="submit" class="bg-red-500 px-2 py-1 rounded-lg"><i class="fa fa-search text-white" aria-hidden="true"></i></button>
         </form>
     </div>

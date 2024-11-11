@@ -1558,3 +1558,196 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-between;
   align-items: center;
 }
+
+/* Estilos del botón para abrir el modal */
+.btn-modal {
+  background-color: #ff7f50; /* Color coral */
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 50px; /* Bordes redondeados */
+  font-size: 18px;
+  font-weight: 600;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-modal:hover {
+  background-color: #e76a3e; /* Color coral más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos del modal */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 999; /* Asegura que el modal esté sobre otros contenidos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+  padding-top: 60px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+/* Estilos del contenido del modal */
+.modal-content {
+  background-color: #fff;
+  padding: 1rem;
+  margin: 0 auto;
+  border-radius: 12px; /* Bordes redondeados */
+  width: 80%;
+  max-width: 500px;
+  height: 80%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra refinada */
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  font-family: "Helvetica Neue", sans-serif;
+  overflow-y: auto;
+}
+
+/* Cuando el modal se muestra */
+.modal.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Cuando el contenido del modal aparece */
+.modal-content.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Estilos para el encabezado del modal */
+.modal-header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.close-btn {
+  color: #999;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #ff7f50; /* Color coral al pasar el ratón */
+}
+
+/* Estilos para el cuerpo del modal */
+.modal-body {
+  padding: 20px 0;
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Estilos para el pie de página del modal */
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.btn-close {
+  background-color: #ff7f50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-close:hover {
+  background-color: #e76a3e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+/* Estilo del contenedor */
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+.form-container h2 {
+  font-size: 1.2rem;
+  color: #343a40;
+  margin-bottom: 20px;
+}
+
+/* Estilo para los inputs y formularios */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+  outline: none;
+}
+
+/* Estilo para el botón */
+.btn {
+  padding: 0.75rem 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 400;
+  text-align: center;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 20px;
+  }
+}

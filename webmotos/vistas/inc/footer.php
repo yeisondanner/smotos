@@ -13,10 +13,10 @@
                 voluptatem
                 eos quasi cum?</p>
             <p class="py-2"></p>
-            <p class="text-xs font-semibold"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;Jro
-                Amazonas N° 208,
-                Elias Soplin
-                Vargas, Rioja, San Martin</p>
+            <p class="text-xs font-semibold"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;&nbsp;Jro.
+            Libertad N°500,
+                Nueva Cajamarca
+                , Rioja, San Martin</p>
             <div>
 
             </div>
@@ -56,8 +56,7 @@
         </div>
     </div>
     <div class="w-full flex justify-center py-10">
-        <p class="text-white text-xs"><span>Copyright © 2022 All Rights Reserved by
-                Carhuapoma.</span>
+        <p class="text-white text-xs"><span>Copyright © 2022 All Rights Reserved.</span>
         </p>
     </div>
 </footer>
