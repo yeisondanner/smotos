@@ -311,4 +311,26 @@ class controladores extends modelos
             echo json_encode($alerta);
         }
     }
+    public function controlador_actualiza_moto()
+    {
+        $txtIdMoto = $_POST['txtIdMoto'];
+        $txtModelo = $_POST['txtModelo'];
+        $txtYear = $_POST['txtYear'];
+        $txtMarca = $_POST['txtMarca'];
+        $txtPrecio = $_POST['txtPrecio'];
+        $txtDescripcion = $_POST['txtDescripcion'];
+        $consulta = "UPDATE `motos` SET `m_Modelo`='$txtModelo', `m_Year`='$txtYear', 
+                    `m_Marca`='$txtMarca', `m_Precio`=$txtPrecio, `m_Descripcion`='$txtDescripcion' 
+                    WHERE  `idMotos`=$txtIdMoto;";
+        if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+            $alerta = [
+                "Alerta" => "limpiar",
+                "Titulo" => "Satisfactorio",
+                "Texto" => "Moto actualizado",
+                "Tipo" => "success",
+                "status" => true
+            ];
+            echo json_encode($alerta);
+        }
+    }
 }

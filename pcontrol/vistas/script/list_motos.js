@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   deleteMoto();
   openModalEdit();
   closeModal();
+  updateMoto();
 });
 function deleteMoto() {
   const arrData = document.querySelectorAll(".btn-delete");
@@ -64,6 +65,37 @@ function openModalEdit() {
         modalContent.classList.add("show");
       }, 10);
     });
+  });
+}
+function updateMoto() {
+  const formMoto = document.getElementById("formMoto");
+  formMoto.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(formMoto);
+    const encabezados = new Headers();
+    const config = {
+      method: "POST",
+      headers: encabezados,
+      mode: "cors",
+      cache: "no-cache",
+      body: data,
+    };
+    const url = base_url + "ajax/update_moto.php";
+    fetch(url, config)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la solicitud");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.status) {
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   });
 }
 function closeModal() {

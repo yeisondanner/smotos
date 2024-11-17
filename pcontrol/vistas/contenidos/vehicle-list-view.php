@@ -14,7 +14,7 @@
                 <div class="form-container">
                     <h2>Informacion de la moto</h2>
                 </div>
-                <form action="">
+                <form id="formMoto">
                     <input type="hidden" id="txtIdMoto" name="txtIdMoto" />
                     <div class="form-group">
                         <label for="txtModelo">Modelo</label>
