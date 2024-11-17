@@ -48,6 +48,60 @@ function openModalEdit() {
         element.getAttribute("data-modelo");
       document.getElementById("txtMarca").value =
         element.getAttribute("data-marca");
+      //seleccionamos un option del select de acuerdo al value del option
+      const select = document.getElementById("slctCategoria");
+      const option = select.querySelector(
+        `option[value="${element.getAttribute("data-idCateregoria")}"]`
+      );
+      select.value = option.value;
+      //sleecionamos un option del select color de acuerdo al value del option
+      const selectColor = document.getElementById("slctColor");
+      const optionColor = selectColor.querySelector(
+        `option[value="${element.getAttribute("data-idColor")}"]`
+      );
+      selectColor.value = optionColor.value;
+      document.getElementById("txtCilindrada").value =
+        element.getAttribute("data-Cilindrada");
+      //sleccionamos el tipo de transmision de acuerdo al value del option
+      const selectTransmision = document.getElementById("slctTipoTransmision");
+      const optionTransmision = selectTransmision.querySelector(
+        `option[value="${element.getAttribute("data-idTipoTransmision")}"]`
+      );
+      selectTransmision.value = optionTransmision.value;
+
+      //seleccionamos  si el Encendido electrico es electronico o no del option del select
+      const selectEnc = document.getElementById("slctEncendidoElectrico");
+      const optionEnc = selectEnc.querySelector(
+        `option[value="${element.getAttribute("data-encendidoElectrico")}"]`
+      );
+      selectEnc.value = optionEnc.value;
+      //seleccionamos si el encendido es manual o no del option del select
+      const selectEncManual = document.getElementById("slctEncendidoManual");
+      const optionEncManual = selectEncManual.querySelector(
+        `option[value="${element.getAttribute("data-encendidoManual")}"]`
+      );
+      selectEncManual.value = optionEncManual.value;
+      //seleccionamos el tipo de motor de acuerdo al value del option, tambien el tipo de freno delantero y otro option de freno trasero
+      const selectTipoMotor = document.getElementById("slctTipoMotor");
+      const optionTipoMotor = selectTipoMotor.querySelector(
+        `option[value="${element.getAttribute("data-idTipoMotor")}"]`
+      );
+      selectTipoMotor.value = optionTipoMotor.value;
+      const selectFrenoDelantero = document.getElementById("scltFrenoD");
+      const optionFrenoDelantero = selectFrenoDelantero.querySelector(
+        `option[value="${element.getAttribute("data-idTipoFrenoDelantero")}"]`
+      );
+      selectFrenoDelantero.value = optionFrenoDelantero.value;
+
+      const selectFrenoTrasero = document.getElementById("scltFrenoT");
+      const optionFrenoTrasero = selectFrenoTrasero.querySelector(
+        `option[value="${element.getAttribute("data-idTipoFrenoTrasero")}"]`
+      );
+      selectFrenoTrasero.value = optionFrenoTrasero.value;
+      document.getElementById("txtPeso").value =
+        element.getAttribute("data-peso");
+      document.getElementById("txtAceleracion").value =
+        element.getAttribute("data-aceleracion");
       document.getElementById("txtYear").value =
         element.getAttribute("data-year");
       document.getElementById("txtPrecio").value =

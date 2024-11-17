@@ -245,6 +245,18 @@ class controladores extends modelos
                                     data-modelo="' . $row['m_Modelo'] . '" 
                                     data-year="' . $row['m_Year'] . '" 
                                     data-marca="' . $row['m_Marca'] . '" 
+                                    data-idCateregoria="' . $row['idCategoria'] . '"
+                                    data-idColor="' . $row['idColor'] . '"
+                                    data-Cilindrada="' . $row['m_Cilindrada'] . '"
+                                    data-idTipoTransmision="' . $row['idTipoTransmision'] . '"
+                                    data-encendidoElectrico="' . $row['m_encendidoElectrico'] . '"
+                                    data-encendidoManual="' . $row['m_encendidoManual'] . '"
+                                    data-idTipoMotor="' . $row['idTipoMotor'] . '"
+                                    data-idTipoFrenoDelantero="' . $row['idTipoFrenoDelantero'] . '"
+                                    data-idTipoFrenoTrasero="' . $row['idTipoFrenoTrasero'] . '"
+                                    data-peso="' . $row['m_Peso'] . '"
+                                    data-velocidadMaxima="' . $row['m_velocidadMaxima'] . '"
+                                    data-aceleracion="' . $row['m_Aceleracion'] . '"
                                     data-precio="' . $row['m_Precio'] . '" 
                                     data-descripcion="' . $row['m_Descripcion'] . '" 
                                     class="bg-cyan-600 px-2 rounded-lg text-white btn-open-edit-modal"><i class="fa fa-edit"></i></a>         
@@ -313,15 +325,72 @@ class controladores extends modelos
     }
     public function controlador_actualiza_moto()
     {
+        /**
+         * Recibir los datos del formulario
+         * Aqui se muestra los datos del formulario 
+         * Array ( [txtIdMoto] => 25 
+         * [txtModelo] => Moto del enano maricon 
+         * [txtYear] => 2026 
+         * [txtMarca] => Hondad 
+         * [slctCategoria] => 7 
+         * [slctColor] => 7 
+         * [txtCilindrada] => 132 
+         * [slctTipoTransmision] => 4 
+         * [slctEncendidoElectrico] => 0 
+         * [slctEncendidoManual] => 0 
+         * [slctTipoMotor] => 10 
+         * [scltFrenoD] => 2 
+         * [scltFrenoT] => 12 
+         * [txtPeso] => 32 
+         * [txtAceleracion] => 2 
+         * [txtPrecio] => 22 
+         * [txtDescripcion] => moto para enanos )
+         * donde los que estan en corchetes son los inputs del formulario
+         */
         $txtIdMoto = $_POST['txtIdMoto'];
         $txtModelo = $_POST['txtModelo'];
         $txtYear = $_POST['txtYear'];
         $txtMarca = $_POST['txtMarca'];
+        $slctCategoria = $_POST['slctCategoria'];
+        $slctColor = $_POST['slctColor'];
+        $txtCilindrada = $_POST['txtCilindrada'];
+        $slctTipoTransmision = $_POST['slctTipoTransmision'];
+        $slctEncendidoElectrico = $_POST['slctEncendidoElectrico'];
+        $slctEncendidoManual = $_POST['slctEncendidoManual'];
+        $slctTipoMotor = $_POST['slctTipoMotor'];
+        $slctFrenoD = $_POST['scltFrenoD'];
+        $slctFrenoT = $_POST['scltFrenoT'];
+        $txtPeso = $_POST['txtPeso'];
+        $txtAceleracion = $_POST['txtAceleracion'];
         $txtPrecio = $_POST['txtPrecio'];
         $txtDescripcion = $_POST['txtDescripcion'];
-        $consulta = "UPDATE `motos` SET `m_Modelo`='$txtModelo', `m_Year`='$txtYear', 
-                    `m_Marca`='$txtMarca', `m_Precio`=$txtPrecio, `m_Descripcion`='$txtDescripcion' 
-                    WHERE  `idMotos`=$txtIdMoto;";
+        /*
+         *Aqui se envia la consulta a la base de datos para actuualizar los datos
+         * Aqui se envia un ejemplo de la consulta
+         * UPDATE `db_motos`.`motos` SET `m_Cilindrada`=11, `idTipoTransmision`=1, `idTipoMotor`=15, `idTipoFrenoDelantero`=1, `idTipoFrenoTrasero`=1, `m_Peso`=1, `m_Aceleracion`=1, `m_Precio`=1, `m_Descripcion`='1' WHERE  `idMotos`=25;
+         * consulta completa
+         * UPDATE `motos` SET `m_Modelo`='Moto del enano maricon', `m_Year`=2026, `m_Marca`='Hondad', `idCategoria`=7, `idColor`=7, `m_Cilindrada`=132, `idTipoTransmision`=4, `idTipoEncendidoElectrico`=0, `idTipoEncendidoManual`=0, `idTipoMotor`=10, `idTipoFrenoDelantero`=2, `idTipoFrenoTrasero`=12, `m_Peso`=32, `m_Aceleracion`=2, `m_Precio`=22, `m_Descripcion`='moto para enanos' WHERE  `idMotos`=25;
+         */
+        $consulta = "UPDATE `motos` 
+        SET 
+        `m_Modelo`='$txtModelo',
+        `m_Year`='$txtYear',
+        `m_Marca`='$txtMarca',
+        `idCategoria`=$slctCategoria,
+        `idColor`=$slctColor,
+        `m_Cilindrada`=$txtCilindrada,
+        `idTipoTransmision`=$slctTipoTransmision,
+        `m_encendidoElectrico`=$slctEncendidoElectrico,
+        `m_encendidoManual`=$slctEncendidoManual,
+        `idTipoMotor`=$slctTipoMotor,
+        `idTipoFrenoDelantero`=$slctFrenoD,
+        `idTipoFrenoTrasero`=$slctFrenoT,
+        `m_Peso`=$txtPeso,
+        `m_Aceleracion`=$txtAceleracion,
+        `m_Precio`=$txtPrecio,
+        `m_Descripcion`='$txtDescripcion' 
+        WHERE  
+        `idMotos`=$txtIdMoto";
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             $alerta = [
                 "Alerta" => "limpiar",
