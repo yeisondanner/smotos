@@ -442,50 +442,50 @@ class controladores extends modelos
         if (isset($_SESSION['ListN'])) {
             //Se ordena el array
             sort($_SESSION['ListN'], SORT_DESC);
-            $cont=0;
+            $cont = 0;
             foreach ($_SESSION['ListN'] as $key => $value) {
-                if($cont==0){
+                if ($cont == 0) {
 
-                
-                ?>
-                <div class="px-2 py-2">
-                    <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
-                        <div class="w-full p-1">
-                            <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
-                            </a>
-                        </div>
-                        <div class="px-2 py-2">
-                            <h1 class="text-lg font-bold text-red-500"><?php echo $value['Modelo'] ?></h1>
-                            <h5 class="text-sm text-gray-600">Honda</h5>
-                            
-                            <h6 class="text-right text-base text-red-500 font-bold"><?php echo MONEDA . " " . $value['Precio'] ?></h6>
-                            <div class="w-full flex justify-between py-2 border-t mt-2">
-                                <div class="py-1">
-                                    <p class="text-xs text-gray-500">Comparte o reacciona</p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <div class="px-1">
-                                        <button class="text-lg text-blue-500"><i class="fa fa-facebook" aria-hidden="true"></i></button>
+
+?>
+                    <div class="px-2 py-2">
+                        <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
+                            <div class="w-full p-1">
+                                <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
+                                    <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                </a>
+                            </div>
+                            <div class="px-2 py-2">
+                                <h1 class="text-lg font-bold text-red-500"><?php echo $value['Modelo'] ?></h1>
+                                <h5 class="text-sm text-gray-600">Honda</h5>
+
+                                <h6 class="text-right text-base text-red-500 font-bold"><?php echo MONEDA . " " . $value['Precio'] ?></h6>
+                                <div class="w-full flex justify-between py-2 border-t mt-2">
+                                    <div class="py-1">
+                                        <p class="text-xs text-gray-500">Comparte o reacciona</p>
                                     </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-blue-600"><i class="fa fa-telegram" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
-                                    </div>
-                                    &nbsp;|
-                                    <div class="px-1">
-                                        <button class="text-lg text-red-500"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    <div class="flex space-x-2">
+                                        <div class="px-1">
+                                            <button class="text-lg text-blue-500"><i class="fa fa-facebook" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-blue-600"><i class="fa fa-telegram" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                        </div>
+                                        &nbsp;|
+                                        <div class="px-1">
+                                            <button class="text-lg text-red-500"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 <?php
                 }
                 $cont++;
@@ -503,7 +503,24 @@ class controladores extends modelos
         $precio = $_POST['precio'];
         $idCliente = $_SESSION['SRM_idCliente'];
         $consulta = "UPDATE `cliente` SET `c_tipoUso` = '$uso', `c_Experiencia` = '$experiencia' WHERE `cliente`.`idCliente` = '$idCliente'";
-        if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+        $dataCliente = mainModel::ejecutar_consulta_simple($consulta);
+        if ($dataCliente->rowCount() > 0) {
+            $sql = "SELECT*FROM gustos AS g WHERE g.idCliente='$idCliente';";
+            $dataGustos = mainModel::ejecutar_consulta_simple($sql);
+            if ($dataGustos->rowCount() > 0) {
+                $consulta = "UPDATE `clienteusuario` SET `cu_primeraVez` = 'No' WHERE `clienteusuario`.`idClienteUsuario` = '$idCliente'";
+                if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+                    $_SESSION['SRM_primeraVez'] = "No";
+                    session_unset();
+                    session_destroy();
+                ?>
+                    <script>
+                        window.location.href = "<?php echo SERVERURL ?>login/";
+                    </script>
+                <?php
+                    die();
+                }
+            }
             $consulta = "INSERT INTO `gustos` 
         (`idGustos`, `idCliente`, `g_Year`, `g_Categoria`, `g_Color`, `g_Cilindrada`, `g_tipoTransmision`, `g_encendidoElectrico`, `g_encendidoManual`, `g_tipoMotor`, `g_tipoFrenoDelantero`, `g_tipoFrenoTrasero`, `g_Peso`, `g_velocidadMaxima`, `g_Aceleracion`, `g_Precio`, `g_totalCalificacion`, `g_totalVistas`, `g_fechaRegistroGusto`) 
         VALUES 
@@ -649,7 +666,7 @@ class controladores extends modelos
         } else {
             ?>
             <h1>Busqueda vacia intentalo otra ves</h1>
-<?php
+            <?php
         }
     }
     public function controlador_para_combo_de_color()
@@ -691,7 +708,6 @@ class controladores extends modelos
                 VALUES 
                 (NULL, '$idCliente', '$usuarioCliente', '$passwordCliente', 'Si')";
                 if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
-                    
                 }
             }
         }
@@ -701,51 +717,51 @@ class controladores extends modelos
         if (isset($_SESSION['ListN'])) {
             //Se ordena el array
             sort($_SESSION['ListN'], SORT_DESC);
-            $cont=0;
+            $cont = 0;
             foreach ($_SESSION['ListN'] as $key => $value) {
-                if($cont>0){
+                if ($cont > 0) {
 
-                
-                ?>
-                <div class="px-2 py-2">
-                    <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
-                        <div class="w-full p-1">
-                            <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
-                            </a>
-                        </div>
-                        <div class="px-2 py-2">
-                            <h1 class="text-lg font-bold text-red-500"><?php echo $value['Modelo'] ?></h1>
-                            <h5 class="text-sm text-gray-600">Honda</h5>
-                           
-                            <h6 class="text-right text-base text-red-500 font-bold"><?php echo MONEDA . " " . $value['Precio'] ?></h6>
-                            <div class="w-full flex justify-between py-2 border-t mt-2">
-                                <div class="py-1">
-                                    <p class="text-xs text-gray-500">Comparte o reacciona</p>
-                                </div>
-                                <div class="flex space-x-2">
-                                    <div class="px-1">
-                                        <button class="text-lg text-blue-500"><i class="fa fa-facebook" aria-hidden="true"></i></button>
+
+            ?>
+                    <div class="px-2 py-2">
+                        <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
+                            <div class="w-full p-1">
+                                <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
+                                    <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                </a>
+                            </div>
+                            <div class="px-2 py-2">
+                                <h1 class="text-lg font-bold text-red-500"><?php echo $value['Modelo'] ?></h1>
+                                <h5 class="text-sm text-gray-600">Honda</h5>
+
+                                <h6 class="text-right text-base text-red-500 font-bold"><?php echo MONEDA . " " . $value['Precio'] ?></h6>
+                                <div class="w-full flex justify-between py-2 border-t mt-2">
+                                    <div class="py-1">
+                                        <p class="text-xs text-gray-500">Comparte o reacciona</p>
                                     </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-blue-600"><i class="fa fa-telegram" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
-                                    </div>
-                                    <div class="px-1">
-                                        <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
-                                    </div>
-                                    &nbsp;|
-                                    <div class="px-1">
-                                        <button class="text-lg text-red-500"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    <div class="flex space-x-2">
+                                        <div class="px-1">
+                                            <button class="text-lg text-blue-500"><i class="fa fa-facebook" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-blue-600"><i class="fa fa-telegram" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
+                                        </div>
+                                        <div class="px-1">
+                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                        </div>
+                                        &nbsp;|
+                                        <div class="px-1">
+                                            <button class="text-lg text-red-500"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <?php
+<?php
                 }
                 $cont++;
             }
