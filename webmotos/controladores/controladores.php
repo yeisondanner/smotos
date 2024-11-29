@@ -99,9 +99,9 @@ class controladores extends modelos
                 }
                 $cadena .= ' <div class="px-2 py-2">
                 <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
-                    <div class="w-full p-1">
+                    <div class="w-full p-1" >
                         <a ' . $url . '">
-                            <img class="w-full" src="' . $img . '" alt="">
+                            <img class="w-full" style="height: 200px;" src="' . $img . '" alt="">
                         </a>
                     </div>
                     <div class="px-2 py-2">
@@ -452,7 +452,7 @@ class controladores extends modelos
                         <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
                             <div class="w-full p-1">
                                 <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                    <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                    <img class="w-full" style="height: 200px!important;" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
                                 </a>
                             </div>
                             <div class="px-2 py-2">
@@ -567,7 +567,7 @@ class controladores extends modelos
                                     <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
                                         <div class="w-full p-1">
                                             <a ' . $url . '>
-                                                <img class="w-full" src="' . $img . '" alt="">
+                                                <img class="w-full" style="height: 200px;" src="' . $img . '" alt="">
                                             </a>
                                         </div>
                                         <div class="px-2 py-2">
@@ -727,7 +727,7 @@ class controladores extends modelos
                         <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
                             <div class="w-full p-1">
                                 <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                    <img class="w-full" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                    <img class="w-full" style="height: 200px;" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
                                 </a>
                             </div>
                             <div class="px-2 py-2">
