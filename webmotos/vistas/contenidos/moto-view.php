@@ -15,10 +15,10 @@ if ($idMotos != null) {
     <div class="owl-carousel owl-theme">
         <?php echo $func->controlador_que_obtiene_las_imagenes_de_la_moto($idMotos) ?>
     </div>
-    <div class="w-full bg-white py-2  flex space-x-2 justify-between overflow-x-auto  px-4">
+    <div class="w-full bg-white py-2  flex space-x-2 justify-between overflow-x-auto  px-4" style="gap: 1rem;">
         <div>
             <h1 class="text-center text-xl w-full
-            text-red-600 font-semibold">Informacion
+            text-red-600 font-semibold" style="font-size: 1.5rem; margin-bottom: 1rem;">Informacion
                 del
                 vehiculo</h1>
             <div class="w-96 border rounded-md grid
@@ -118,7 +118,7 @@ if ($idMotos != null) {
             </div>
         </div>
         <div>
-            <h1 class="font-semibold text-xl text-red-600">Descripcion</h1>
+            <h1 class="font-semibold text-xl text-red-600" style="font-size: 1.5rem; margin-bottom: 1rem;">Descripcion</h1>
             <p><?php echo $func->controlador_que_obtiene_informacion_de_la_moto($idMotos)['m_Descripcion'] ?></p>
         </div>
     </div>
