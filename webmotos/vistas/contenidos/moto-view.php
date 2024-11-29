@@ -5,7 +5,7 @@ if ($idMotos != null) {
     echo $func->controlador_que_registra_la_vista_de_la_moto($_SESSION['SRM_idCliente'], $idMotos);
 }
 ?>
-<div>
+<div style="padding-left: 2rem; padding-right: 2rem;">
     <div class="absolute z-50 mt-4 ml-4">
         <h1 class="text-white font-semibold text-3xl" style="text-shadow: 0 0 10px black;"><?php echo $func->controlador_que_obtiene_informacion_de_la_moto($idMotos)['m_Modelo'] ?></h1>
         <h6 class="text-sm text-white" style="text-shadow: 0
@@ -183,7 +183,7 @@ if ($idMotos != null) {
             var parametros = {
                 "idClienteR": idCliente,
                 "idMotosR": idMotos,
-                "idGustos":idGustos,
+                "idGustos": idGustos,
                 "ValoracionR": valor
             };
             $.ajax({

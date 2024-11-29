@@ -177,7 +177,7 @@ class controladores extends modelos
             foreach (mainModel::ejecutar_consulta_simple($consulta)->fetchAll() as $row) {
                 $cadena .= '<div class="bg-white item w-full h-72 sm:h-80
                 md:h-screen">
-                    <img class="h-full w-full" src="' . SERVERURL . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="" srcset="">
+                    <img style="height: 450px; object-fit: contain;" class="w-full" src="' . SERVERURL . 'vistas/assets/motos/' . $row['i_Imagen'] . '" alt="" srcset="">
                 </div>';
             }
             return $cadena;
