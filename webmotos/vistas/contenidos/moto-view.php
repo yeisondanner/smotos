@@ -184,7 +184,8 @@ if ($idMotos != null) {
                 "idClienteR": idCliente,
                 "idMotosR": idMotos,
                 "idGustos": idGustos,
-                "ValoracionR": valor
+                "ValoracionR": valor,
+                "idCategoria": <?php echo $func->controlador_que_obtiene_informacion_de_la_moto($idMotos)['idCategoria'] ?>,
             };
             $.ajax({
                 data: parametros,

@@ -40,30 +40,40 @@
                             <div class="w-full">
                                 <h1 class="text-xl font-bold text-red-600">Primera vez que inicias sesion</h1>
                                 <p>Este formulario te aparecera solo una ves, el motivo es porque se necesita recolectar cierto tipo de informacion para realizar la recomendacion personalidad de motocicleta para ti</p>
-                                <div class="w-full px-2">
-                                    <form action="" method="post" class="sm:w-96 w-full border px-2 rounded-lg">
-                                        <div class="my-1">
-                                            <label for="year"><strong>¿De que año deseas la moto?</strong></label>
-                                            <br>
-                                            <input type="number" name="year" id="year" min="1000" class="w-full rounded-lg" placeholder="Ingrese el año de su preferencia">
+                                <div style="width: 50%; margin: 5rem auto; " class="px-4 flex justify-center">
+                                    <form action="" method="post" class="sm:w-96 w-full bg-white shadow-lg p-6 rounded-lg border">
+                                        <div class="mb-4">
+                                            <label for="year" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿De qué año deseas la moto?</strong>
+                                            </label>
+                                            <input type="number" name="year" id="year" min="1000"
+                                                class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                                                placeholder="Ingrese el año de su preferencia">
                                         </div>
-                                        <div class="my-1">
-                                            <label for="cilindraja"><strong>¿Que capacidad de tanque deseas en litros?</strong></label>
-                                            <br>
-                                            <input type="number" name="cilindraja" id="cilindraja" min="10" class="w-full rounded-lg" placeholder="Ingrese un cilindraje de su preferencia">
+                                        <div class="mb-4">
+                                            <label for="cilindraja" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿Qué capacidad de tanque deseas en litros?</strong>
+                                            </label>
+                                            <input type="number" name="cilindraja" id="cilindraja" min="10"
+                                                class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                                                placeholder="Ingrese un cilindraje de su preferencia">
                                         </div>
-                                        <div class="my-1">
-                                            <label for="color"><strong>¿De que color quieres la moto?</strong></label>
-                                            <br>
-                                            <select name="color" id="color" required class="w-full rounded-lg">
+                                        <div class="mb-4">
+                                            <label for="color" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿De qué color quieres la moto?</strong>
+                                            </label>
+                                            <select name="color" id="color" required
+                                                class="w-full border border-gray-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
                                                 <option value="" disabled selected>Seleccione el color</option>
                                                 <?php echo $func->controlador_para_combo_de_color(); ?>
                                             </select>
                                         </div>
-                                        <div class="my-1">
-                                            <label for="uso"><strong>¿Para que uso desea la moto?</strong></label>
-                                            <br>
-                                            <select name="uso" id="uso" class="w-full rounded-lg">
+                                        <div class="mb-4">
+                                            <label for="uso" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿Para qué uso desea la moto?</strong>
+                                            </label>
+                                            <select name="uso" id="uso"
+                                                class="w-full border border-gray-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
                                                 <option value="" disabled selected>Seleccione el uso de la moto</option>
                                                 <option value="Ciudad">Para ciudad</option>
                                                 <option value="Campo">Para el campo</option>
@@ -73,25 +83,34 @@
                                                 <option value="Delivery">Delivery</option>
                                             </select>
                                         </div>
-                                        <div class="my-1">
-                                            <label for="experiencia"><strong>¿Qué experiencia tienes en el uso de motos?</strong></label>
-                                            <br>
-                                            <select name="experiencia" id="experiencia" class="w-full rounded-lg">
+                                        <div class="mb-4">
+                                            <label for="experiencia" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿Qué experiencia tienes en el uso de motos?</strong>
+                                            </label>
+                                            <select name="experiencia" id="experiencia"
+                                                class="w-full border border-gray-300 rounded-lg p-2 bg-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
                                                 <option value="" disabled selected>Seleccione el nivel de experiencia</option>
                                                 <option value="Experto">Experto</option>
                                                 <option value="Principiante">Principiante</option>
                                             </select>
                                         </div>
-                                        <div class="my-1">
-                                            <label for="precio"><strong>¿Con que presupuesto cuenta? (s/.)</strong></label>
-                                            <br>
-                                            <input type="number" name="precio" id="precio" min="1000" step="0.01" class="w-full rounded-lg" placeholder="Ingrese un precio">
+                                        <div class="mb-4">
+                                            <label for="precio" class="block text-sm font-medium text-gray-700 mb-1">
+                                                <strong>¿Con qué presupuesto cuenta? (s/.)</strong>
+                                            </label>
+                                            <input type="number" name="precio" id="precio" min="1000" step="0.01"
+                                                class="w-full border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                                                placeholder="Ingrese un precio">
                                         </div>
-                                        <div class="my-1">
-                                            <button type="submit" class="text-white rounded-full w-full bg-red-600 px-2 font-semibold">Continuar</button>
+                                        <div>
+                                            <button type="submit"
+                                                class="w-full bg-red-600 text-white font-semibold py-2 px-4 rounded-full hover:bg-red-700 transition duration-200">
+                                                Continuar
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
+
 
                     <?php
                             if (isset($_POST['year'])) {

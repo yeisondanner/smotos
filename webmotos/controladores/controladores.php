@@ -246,15 +246,36 @@ class controladores extends modelos
         $idCliente = mainModel::limpiar_cadena($_POST['idClienteR']);
         $idMotos = mainModel::limpiar_cadena($_POST['idMotosR']);
         $idMotos = mainModel::decryption($idMotos);
-        $c_numeroEstrellas = mainModel::limpiar_cadena($_POST['ValoracionR']);
+        $c_numeroEstrellas = mainModel::limpiar_cadena(isset($_POST['ValoracionR']) ? $_POST['ValoracionR'] : 0);
         $idGustos = mainModel::limpiar_cadena($_POST['idGustos']);
+        $idCategoria = mainModel::limpiar_cadena($_POST['idCategoria']);
+        if ($idCategoria == 0 || $idCategoria == 1 || $idCategoria == 3 || $idCategoria == 6 || $idCategoria == 8 || $idCategoria == 10) {
+            $experiencia = "Experto";
+        } else {
+            $experiencia = "Principiante";
+        }
+        if ($idCategoria == 2) {
+            $tipoUso = "Mixto";
+        } else if ($idCategoria == 4) {
+            $tipoUso = "Delivery";
+        } else if ($idCategoria == 11) {
+            $tipoUso = "Carretera";
+        } else if ($idCategoria == 5) {
+            $tipoUso = "Mixto";
+        } else {
+            $tipoUso = "Campo";
+        }
+        $sqlTipoExperiencia = "UPDATE `cliente` SET `c_tipoUso`='$tipoUso', `c_Experiencia`='$experiencia' WHERE  `idCliente`=$idCliente;";
+        $dataUpdateCliente = mainModel::ejecutar_consulta_simple($sqlTipoExperiencia);
+        if ($dataUpdateCliente->rowCount() > 0) {
+        } else {
+        }
         $consulta = "SELECT * FROM `calificacion` as c where c.idCliente='$idCliente' and c.idMotos='$idMotos';";
         $consultaMoto = "SELECT * FROM `motos` WHERE idMotos='$idMotos';";
         $rg = mainModel::ejecutar_consulta_simple($consultaMoto)->fetch();
         if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
             if (modelos::modelo_que_actualiza_la_calificacion($idCliente, $idMotos, $c_numeroEstrellas)) {
                 if (modelos::modelo_que_actualiza_los_gustos($rg['m_Year'], $rg['idCategoria'], $rg['idColor'], $rg['m_Cilindrada'], $rg['idTipoTransmision'], $rg['m_encendidoElectrico'], $rg['m_encendidoManual'], $rg['idTipoMotor'], $rg['idTipoFrenoDelantero'], $rg['idTipoFrenoTrasero'], $rg['m_Peso'], $rg['m_velocidadMaxima'], $rg['m_Aceleracion'], $rg['m_Precio'], $c_numeroEstrellas, '0', $idGustos)->rowCount() > 0) {
-
                     return "Calificacion actualizada";
                 }
             }
@@ -332,20 +353,20 @@ class controladores extends modelos
         if (mainModel::ejecutar_consulta_simple($BDGustos)->rowCount() > 0) {
             $var = mainModel::ejecutar_consulta_simple($BDGustos)->fetch();
             if ($_SESSION['SRM_Experiencia'] == "Experto") {
-                $cat1 = "Todo Terreno";
+                $cat1 = "TODO TERRENO";
             } else if ($_SESSION['SRM_Experiencia'] == "Principiante") {
-                $cat1 = "SCOOTER Y SEMIAUTOMÁTICA";
+                $cat1 = "SCOOTER";
             }
             if ($_SESSION['SRM_tipoUso'] == "Ciudad") {
-                $cat2 = "Super Sport";
+                $cat2 = "PISTERAS";
             } else if ($_SESSION['SRM_tipoUso'] == "Campo") {
-                $cat2 = "Turismo";
+                $cat2 = "TODO TERRENO";
             } else if ($_SESSION['SRM_tipoUso'] == "Mixto") {
-                $cat2 = "Pisteras";
+                $cat2 = "UTILITARIAS";
             } else if ($_SESSION['SRM_tipoUso'] == "Viajes") {
-                $cat2 = "Enduro y Motocross";
-            } else if ($_SESSION['SRM_tipoUso'] == "Deporte") {
-                $cat2 = "Todo Terreno";
+                $cat2 = "TURISMO";
+            } else if ($_SESSION['SRM_tipoUso'] == "Carretera") {
+                $cat2 = "ENDURO Y MOTOCROSS";
             } else if ($_SESSION['SRM_tipoUso'] == "Delivery") {
                 $cat2 = "NAVI";
             }
@@ -502,14 +523,16 @@ class controladores extends modelos
         $experiencia = $_POST['experiencia'];
         $precio = $_POST['precio'];
         $idCliente = $_SESSION['SRM_idCliente'];
-        $consulta = "UPDATE `cliente` SET `c_tipoUso` = '$uso', `c_Experiencia` = '$experiencia' WHERE `cliente`.`idCliente` = '$idCliente'";
+        $consulta = "UPDATE `cliente` SET `c_tipoUso` = '$uso', `c_Experiencia` = '$experiencia' WHERE `cliente`.`idCliente` = $idCliente";
         $dataCliente = mainModel::ejecutar_consulta_simple($consulta);
         if ($dataCliente->rowCount() > 0) {
             $sql = "SELECT*FROM gustos AS g WHERE g.idCliente='$idCliente';";
-            $dataGustos = mainModel::ejecutar_consulta_simple($sql);
-            if ($dataGustos->rowCount() > 0) {
-                $consulta = "UPDATE `clienteusuario` SET `cu_primeraVez` = 'No' WHERE `clienteusuario`.`idClienteUsuario` = '$idCliente'";
-                if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+            $dataGustos = mainModel::ejecutar_consulta_simple($sql)->fetchAll();
+            if ($dataGustos) {
+                echo $idCliente;
+                $consultaUpdatePrimeraVez = "UPDATE `clienteusuario` SET `cu_primeraVez`='No' WHERE  `idCliente`=$idCliente;";
+                $requestUpdatePrimeraVez = mainModel::ejecutar_consulta_simple($consultaUpdatePrimeraVez);
+                if ($requestUpdatePrimeraVez) {
                     $_SESSION['SRM_primeraVez'] = "No";
                     session_unset();
                     session_destroy();
@@ -525,9 +548,9 @@ class controladores extends modelos
         (`idGustos`, `idCliente`, `g_Year`, `g_Categoria`, `g_Color`, `g_Cilindrada`, `g_tipoTransmision`, `g_encendidoElectrico`, `g_encendidoManual`, `g_tipoMotor`, `g_tipoFrenoDelantero`, `g_tipoFrenoTrasero`, `g_Peso`, `g_velocidadMaxima`, `g_Aceleracion`, `g_Precio`, `g_totalCalificacion`, `g_totalVistas`, `g_fechaRegistroGusto`) 
         VALUES 
         (NULL, '$idCliente', '$year', NULL, NULL, '', NULL, '', '', NULL, NULL, NULL, NULL, '', NULL, '$precio', NULL, NULL, current_timestamp())";
-            if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
-                $consulta = "UPDATE `clienteusuario` SET `cu_primeraVez` = 'No' WHERE `clienteusuario`.`idClienteUsuario` = '$idCliente'";
-                if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
+            if (mainModel::ejecutar_consulta_simple($consulta)) {
+                $consulta = "UPDATE `clienteusuario` SET `cu_primeraVez`='No' WHERE  `idCliente`=$idCliente;";
+                if (mainModel::ejecutar_consulta_simple($consulta)) {
                     $_SESSION['SRM_primeraVez'] = "No";
                     session_unset();
                     session_destroy();
@@ -767,5 +790,9 @@ class controladores extends modelos
             }
         }
         unset($_SESSION['ListN']);
+    }
+    public function updateInformacion(string $sql)
+    {
+        return mainModel::ejecutar_consulta_simple($sql);
     }
 }

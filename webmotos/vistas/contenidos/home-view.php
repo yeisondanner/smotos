@@ -1,4 +1,9 @@
  <?php
+    $idCliente = $_SESSION['SRM_idCliente'];
+    $sql = "SELECT*FROM cliente AS c WHERE c.idCliente='$idCliente';";
+    $row = $func->updateInformacion($sql)->fetch();
+    $_SESSION['SRM_tipoUso'] = $row['c_tipoUso'];
+    $_SESSION['SRM_Experiencia'] = $row['c_Experiencia'];
     if (isset($_POST['buscador'])) {
     ?>
      <div class="px-2">
@@ -30,7 +35,7 @@
          </div>
          <div class="bg-gray-50 rounded-md border mt-2 p-1">
              <h1 class="text-lg font-semibold text-red-600"> <i class="fa fa-star" aria-hidden="true"></i>
-                 Recomendacion exclusiva para ti <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_Experiencia'] ?></span> <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo$_SESSION['SRM_tipoUso']?></span></h1> 
+                 Recomendacion exclusiva para ti <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_Experiencia'] ?></span> <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_tipoUso'] ?></span></h1>
              <hr>
              <div class="flex overflow-x-auto w-full">
                  <?php
@@ -41,7 +46,7 @@
          </div>
          <div class="bg-gray-50 rounded-md border mt-2 p-1">
              <h1 class="text-lg font-semibold text-red-600"> <i class="fa fa-star" aria-hidden="true"></i>
-                Más recomendaciones para ti <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_Experiencia'] ?></span> <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo$_SESSION['SRM_tipoUso']?></span></h1> 
+                 Más recomendaciones para ti <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_Experiencia'] ?></span> <span class="text-xs border rounded-lg text-white bg-red-500 px-2"><?php echo $_SESSION['SRM_tipoUso'] ?></span></h1>
              <hr>
              <div class="flex overflow-x-auto w-full">
                  <?php
