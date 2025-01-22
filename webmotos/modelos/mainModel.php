@@ -72,7 +72,11 @@ class mainModel
             $prepared->execute();
             return $prepared;
         } catch (Exception $th) {
-            return "Ocurrio un error inesperado " + $th;
+            echo '<div class="alerta error">
+                        <span class="icono-alerta">&#9888;</span>
+                        <span class="mensaje-alerta">' . $th->getMessage() . '</span>
+                </div>';
+            exit();
         }
     }
 

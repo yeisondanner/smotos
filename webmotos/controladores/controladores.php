@@ -34,7 +34,8 @@ class controladores extends modelos
                 $_SESSION['SRM_Nombres'] = $row['p_Nombres'];
                 $_SESSION['SRM_Usuario'] = $row['cu_Usuario'];
                 $_SESSION['SRM_primeraVez'] = $row['cu_primeraVez'];
-                $ic = $row['idCliente'];;
+                $ic = $row['idCliente'];
+                ;
                 $consulta = "SELECT * FROM `gustos` as g where g.idCliente='$ic';";
                 $idgustos = mainModel::ejecutar_consulta_simple($consulta)->fetch()['idGustos'];
                 $_SESSION['SRM_idGustos'] = $idgustos;
@@ -341,10 +342,10 @@ class controladores extends modelos
         $prec,
         $precG
     ) {
-        $resultado = sqrt(pow($yearG - $year, 2) + pow($catG - $cat,  2) +
-            pow($colG - $col,  2) + pow($cilG - $cil,  2) + pow($transG - $trans,  2) + pow($eeG - $ee,  2) + pow($emG - $em,  2) +
-            pow($tmG - $tm,  2) + pow($fdG - $fd,  2) + pow($ftG - $ft,  2) + pow($pesG - $pes,  2) + pow($vmG - $vm,  2) +
-            pow($acelG - $acel,  2) + pow($precG - $prec,  2));
+        $resultado = sqrt(pow($yearG - $year, 2) + pow($catG - $cat, 2) +
+            pow($colG - $col, 2) + pow($cilG - $cil, 2) + pow($transG - $trans, 2) + pow($eeG - $ee, 2) + pow($emG - $em, 2) +
+            pow($tmG - $tm, 2) + pow($fdG - $fd, 2) + pow($ftG - $ft, 2) + pow($pesG - $pes, 2) + pow($vmG - $vm, 2) +
+            pow($acelG - $acel, 2) + pow($precG - $prec, 2));
         return $resultado;
     }
     public function controlador_ejecuta_calculo($idCliente)
@@ -468,12 +469,13 @@ class controladores extends modelos
                 if ($cont == 0) {
 
 
-?>
+                    ?>
                     <div class="px-2 py-2">
                         <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
                             <div class="w-full p-1">
                                 <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                    <img class="w-full" style="height: 200px!important;" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                    <img class="w-full" style="height: 200px!important;"
+                                        src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
                                 </a>
                             </div>
                             <div class="px-2 py-2">
@@ -496,7 +498,8 @@ class controladores extends modelos
                                             <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
                                         </div>
                                         <div class="px-1">
-                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp"
+                                                    aria-hidden="true"></i></button>
                                         </div>
                                         &nbsp;|
                                         <div class="px-1">
@@ -507,7 +510,7 @@ class controladores extends modelos
                             </div>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 $cont++;
             }
@@ -536,11 +539,11 @@ class controladores extends modelos
                     $_SESSION['SRM_primeraVez'] = "No";
                     session_unset();
                     session_destroy();
-                ?>
+                    ?>
                     <script>
                         window.location.href = "<?php echo SERVERURL ?>login/";
                     </script>
-                <?php
+                    <?php
                     die();
                 }
             }
@@ -554,11 +557,11 @@ class controladores extends modelos
                     $_SESSION['SRM_primeraVez'] = "No";
                     session_unset();
                     session_destroy();
-                ?>
+                    ?>
                     <script>
                         window.location.href = "<?php echo SERVERURL ?>login/";
                     </script>
-            <?php
+                    <?php
                 }
             }
         }
@@ -705,36 +708,102 @@ class controladores extends modelos
     }
     public function controlador_que_registra_al_cliente()
     {
-        $nombreCliente = mainModel::limpiar_cadena($_POST['nombreCliente']);
-        $apelllidosCliente = mainModel::limpiar_cadena($_POST['apelllidosCliente']);
-        $emailCliente = mainModel::limpiar_cadena($_POST['emailCliente']);
-        $fechaNacimientoCliente = mainModel::limpiar_cadena($_POST['fechaNacimientoCliente']);
-        $sexoCliente = mainModel::limpiar_cadena($_POST['sexoCliente']);
-        $estadoCivilCliente = mainModel::limpiar_cadena($_POST['estadoCivilCliente']);
-        $usuarioCliente = mainModel::limpiar_cadena($_POST['usuarioCliente']);
-        $passwordCliente = mainModel::limpiar_cadena($_POST['passwordCliente']);
-        $consulta = "INSERT INTO `persona` 
-        (`idPersona`, `p_Nombres`, `p_Apellidos`, `p_Correo`, `p_fechaNacimiento`, `p_Sexo`, `p_estadoCivil`, `p_fechaRegistro`) 
-        VALUES 
-        (NULL, '$nombreCliente', '$apelllidosCliente', '$emailCliente', '$fechaNacimientoCliente', '$sexoCliente', '$estadoCivilCliente', current_timestamp())";
-        if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
-            $consulta = "SELECT * FROM `persona` as p where p.p_Correo='$emailCliente';";
-            $idPersona = mainModel::ejecutar_consulta_simple($consulta)->fetch()['idPersona'];
-            $consulta = "INSERT INTO `cliente` 
-            (`idCliente`, `idPersona`, `c_fechaRegistro`, `c_Estado`, `c_tipoUso`, `c_Experiencia`) 
-            VALUES 
-            (NULL, '$idPersona', current_timestamp(), 'activo', '', '')";
-            if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
-                $idCliente = mainModel::ejecutar_consulta_simple("SELECT * FROM `cliente` as c where c.idPersona='$idPersona';")->fetch()['idCliente'];
-                $consulta = "INSERT INTO `clienteusuario`
-                (`idClienteUsuario`, `idCliente`, `cu_Usuario`, `cu_Pasword`, `cu_primeraVez`) 
-                VALUES 
-                (NULL, '$idCliente', '$usuarioCliente', '$passwordCliente', 'Si')";
-                if (mainModel::ejecutar_consulta_simple($consulta)->rowCount() > 0) {
-                }
+        try {
+            // Verificar que los campos obligatorios están establecidos
+            if (!isset($_POST['sexoCliente'])) {
+                echo '<div class="alerta advertencia">
+                        <span class="icono-alerta">&#9888;</span>
+                        <span class="mensaje-alerta">No seleccionó un elemento de la lista de tipo sexo</span>
+                      </div>';
+                exit();
             }
+            if (!isset($_POST['estadoCivilCliente'])) {
+                echo '<div class="alerta advertencia">
+                        <span class="icono-alerta">&#9888;</span>
+                        <span class="mensaje-alerta">No seleccionó un elemento de la lista de estado civil</span>
+                      </div>';
+                exit();
+            }
+
+            // Limpieza de datos de entrada
+            $nombreCliente = mainModel::limpiar_cadena($_POST['nombreCliente']);
+            $apellidosCliente = mainModel::limpiar_cadena($_POST['apelllidosCliente']);
+            $emailCliente = mainModel::limpiar_cadena($_POST['emailCliente']);
+            $fechaNacimientoCliente = mainModel::limpiar_cadena($_POST['fechaNacimientoCliente']);
+            $sexoCliente = mainModel::limpiar_cadena($_POST['sexoCliente']);
+            $estadoCivilCliente = mainModel::limpiar_cadena($_POST['estadoCivilCliente']);
+            $usuarioCliente = mainModel::limpiar_cadena($_POST['usuarioCliente']);
+            $passwordCliente = mainModel::limpiar_cadena($_POST['passwordCliente']);
+
+            if ($passwordCliente == "" || $usuarioCliente == "" || $estadoCivilCliente == "" || $sexoCliente == "" || $nombreCliente == "" || $apellidosCliente == "" || $emailCliente == "" || $fechaNacimientoCliente == "") {
+                echo '<div class="alerta error">
+                            <span class="icono-alerta">&#9888;</span>
+                            <span class="mensaje-alerta">Los campos estan vacios, por favor llenalos</span>
+                       </div>';
+                exit();
+            }
+            // Registro en la tabla persona
+            $consultaPersona = "INSERT INTO `persona` 
+                                (`idPersona`, `p_Nombres`, `p_Apellidos`, `p_Correo`, `p_fechaNacimiento`, `p_Sexo`, `p_estadoCivil`, `p_fechaRegistro`) 
+                                VALUES 
+                                (NULL, '$nombreCliente', '$apellidosCliente', '$emailCliente', '$fechaNacimientoCliente', '$sexoCliente', '$estadoCivilCliente', current_timestamp())";
+
+            $resultPeople = mainModel::ejecutar_consulta_simple($consultaPersona);
+
+            if (!$resultPeople || $resultPeople->rowCount() <= 0) {
+                throw new Exception("Error al registrar los datos en la tabla 'persona'.");
+            }
+
+            // Obtener ID de persona registrada
+            $consultaIdPersona = "SELECT idPersona FROM `persona` WHERE p_Correo='$emailCliente'";
+            $idPersona = mainModel::ejecutar_consulta_simple($consultaIdPersona)->fetch()['idPersona'];
+
+            // Registro en la tabla cliente
+            $consultaCliente = "INSERT INTO `cliente` 
+                                (`idCliente`, `idPersona`, `c_fechaRegistro`, `c_Estado`, `c_tipoUso`, `c_Experiencia`) 
+                                VALUES 
+                                (NULL, '$idPersona', current_timestamp(), 'activo', '', '')";
+            $resultCliente = mainModel::ejecutar_consulta_simple($consultaCliente);
+
+            if (!$resultCliente || $resultCliente->rowCount() <= 0) {
+                throw new Exception("Error al registrar los datos en la tabla 'cliente'.");
+            }
+
+            // Obtener ID de cliente registrado
+            $consultaIdCliente = "SELECT idCliente FROM `cliente` WHERE idPersona='$idPersona'";
+            $idCliente = mainModel::ejecutar_consulta_simple($consultaIdCliente)->fetch()['idCliente'];
+
+            // Registro en la tabla clienteusuario
+            $consultaUsuario = "INSERT INTO `clienteusuario` 
+                                (`idClienteUsuario`, `idCliente`, `cu_Usuario`, `cu_Pasword`, `cu_primeraVez`) 
+                                VALUES 
+                                (NULL, '$idCliente', '$usuarioCliente', '$passwordCliente', 'Si')";
+            $resultUsuario = mainModel::ejecutar_consulta_simple($consultaUsuario);
+
+            if (!$resultUsuario || $resultUsuario->rowCount() <= 0) {
+                throw new Exception("Error al registrar los datos en la tabla 'clienteusuario'.");
+            }
+
+            // Mensaje de éxito
+            echo '<div class="alerta exito">
+                    <span class="icono-alerta">&#9989;</span>
+                    <span class="mensaje-alerta">Registro completado exitosamente.</span>
+                  </div>';
+        } catch (PDOException $e) {
+            // Manejo de errores de PDO
+            echo '<div class="alerta error">
+                    <span class="icono-alerta">&#10060;</span>
+                    <span class="mensaje-alerta">Error en la base de datos: ' . htmlspecialchars($e->getMessage()) . '</span>
+                  </div>';
+        } catch (Exception $e) {
+            // Manejo de otros errores
+            echo '<div class="alerta error">
+                    <span class="icono-alerta">&#10060;</span>
+                    <span class="mensaje-alerta">' . htmlspecialchars($e->getMessage()) . '</span>
+                  </div>';
         }
     }
+
     public function controlador_que_lista_la_recomendacion1()
     {
         if (isset($_SESSION['ListN'])) {
@@ -745,12 +814,13 @@ class controladores extends modelos
                 if ($cont > 0) {
 
 
-            ?>
+                    ?>
                     <div class="px-2 py-2">
                         <div class="w-96 sm:w-72 hover:shadow-xl bg-white rounded-lg shadow-md">
                             <div class="w-full p-1">
                                 <a href="<?php echo SERVERURL ?>moto/<?php echo mainModel::encryption($value['idMoto']) ?>">
-                                    <img class="w-full" style="height: 200px;" src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
+                                    <img class="w-full" style="height: 200px;"
+                                        src="<?php echo SERVERURL ?>vistas/assets/motos/<?php echo $value['Imagen'] ?>" alt="">
                                 </a>
                             </div>
                             <div class="px-2 py-2">
@@ -773,7 +843,8 @@ class controladores extends modelos
                                             <button class="text-lg text-sky-500"><i class="fa fa-twitter" aria-hidden="true"></i></button>
                                         </div>
                                         <div class="px-1">
-                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp" aria-hidden="true"></i></button>
+                                            <button class="text-lg text-green-500"><i class="fa fa-whatsapp"
+                                                    aria-hidden="true"></i></button>
                                         </div>
                                         &nbsp;|
                                         <div class="px-1">
@@ -784,7 +855,7 @@ class controladores extends modelos
                             </div>
                         </div>
                     </div>
-<?php
+                    <?php
                 }
                 $cont++;
             }

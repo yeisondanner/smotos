@@ -1,6 +1,7 @@
-<div class="flex justify-center w-full" style="background: url('https://www.xtrafondos.com/wallpapers/motocicleta-1492.jpg') center top fixed;">
+<div class="flex justify-center w-full"
+    style="background: url('https://www.xtrafondos.com/wallpapers/motocicleta-1492.jpg') center top fixed;">
     <div class="">
-        <div class="bg-white w-80 sm:w-96 my-32 rounded-md shadow-2xl border justify-center">
+        <div class="bg-white w-80 sm:w-96 my-2 rounded-md shadow-2xl border justify-center">
             <h1 class="text-center text-4xl font-bold text-red-500"><?php echo COMPANY ?></h1>
             <div class="flex justify-center -mt-5">
                 <img src="motorbike.png" class="w-20" alt="">
@@ -16,23 +17,32 @@
                     <hr>
                     <div class="grid px-1 py-1">
                         <label for="nombreCliente" class="text-red-500 font-semibold">Nombre</label>
-                        <input type="text" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="nombreCliente" id="nombreCliente">
+                        <input type="text"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="nombreCliente" id="nombreCliente">
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="apelllidosCliente" class="text-red-500 font-semibold">Apellidos</label>
-                        <input type="text" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="apelllidosCliente" id="apelllidosCliente">
+                        <input type="text"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="apelllidosCliente" id="apelllidosCliente">
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="emailCliente" class="text-red-500 font-semibold">Correo Electronico</label>
-                        <input type="email" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="emailCliente" id="emailCliente">
+                        <input type="email"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="emailCliente" id="emailCliente">
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="fechaNacimientoCliente" class="text-red-500 font-semibold">Fecha Nacimiento</label>
-                        <input type="date" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="fechaNacimientoCliente" id="fechaNacimientoCliente">
+                        <input type="date"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="fechaNacimientoCliente" id="fechaNacimientoCliente">
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="sexoCliente" class="text-red-500 font-semibold">Sexo</label>
-                        <select name="sexoCliente" id="sexoCliente" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400">
+                        <select name="sexoCliente" id="sexoCliente"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400">
                             <option value="" disabled selected>Seleccione su sexo</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
@@ -40,7 +50,8 @@
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="estadoCivilCliente" class="text-red-500 font-semibold">Estado Civil</label>
-                        <select name="estadoCivilCliente" id="estadoCivilCliente" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400">
+                        <select name="estadoCivilCliente" id="estadoCivilCliente"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400">
                             <option value="" disabled selected>Seleccione su estado civil</option>
                             <option value="Soltero">Soltero</option>
                             <option value="Casado">Casado</option>
@@ -52,11 +63,15 @@
                     <hr>
                     <div class="grid px-1 py-1">
                         <label for="usuarioCliente" class="text-red-500 font-semibold">Usuario</label>
-                        <input type="text" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="usuarioCliente" id="usuarioCliente">
+                        <input type="text"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="usuarioCliente" id="usuarioCliente">
                     </div>
                     <div class="grid px-1 py-1">
                         <label for="passwordCliente" class="text-red-500 font-semibold">Contraseña</label>
-                        <input type="text" class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400" name="passwordCliente" id="passwordCliente">
+                        <input type="text"
+                            class="w-full outline-none bg-gray-50 hover:bg-gray-100 h-8 rounded-lg px-2 focus:shadow-md focus:shadow-red-400"
+                            name="passwordCliente" id="passwordCliente">
                     </div>
                 </fieldset>
                 <div class="grid px-1 py-1 mt-2">
@@ -64,7 +79,9 @@
                         Cuenta</button>
                 </div>
                 <div class="flex px-1 py-2">
-                    <div><span class="text-sm text-gray-500">¿Ya tienes una cuenta?</span> <a href="<?php echo SERVERURL ?>login/" class="text-sm text-red-500 font-bold">Inicia Sesion</a>
+                    <div><span class="text-sm text-gray-500">¿Ya tienes una cuenta?</span> <a
+                            href="<?php echo SERVERURL ?>login/" class="text-sm text-red-500 font-bold">Inicia
+                            Sesion</a>
                     </div>
                 </div>
             </form>
@@ -77,5 +94,3 @@
 if (($_POST)) {
     echo $func->controlador_que_registra_al_cliente();
 }
-
-?>
